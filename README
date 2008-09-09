@@ -4,7 +4,7 @@ Conversions are implemented using the strategy pattern.
 
 The following strategies are available :
  * CSV -> HTML
- * CSV -> PDF (using http://www.dompdf.org)
+ * CSV -> PDF (using http://www.digitaljunkies.ca/dompdf/)
 
 The following templates are available :
  * Scrum cards
