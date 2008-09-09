@@ -1,0 +1,10 @@
+Small php framework used to convert CSV file to any other formats.
+
+Conversions are implemented using the strategy pattern.
+
+The following strategies are available :
+ * CSV -> HTML
+ * CSV -> PDF (using http://www.dompdf.org)
+
+The following templates are available :
+ * Scrum cards
