@@ -9,16 +9,16 @@ The following strategies are available :
 The following templates are available :
  * Scrum cards
 
- CLI usage examples :
+CLI usage examples :
 
   # Displays global help, lists available commands
-  php ./bin/csv-convert -h
+  ./bin/csv-convert -h
 
   # Displays help for a specific command
-  php ./bin/csv-convert <command> -h
+  ./bin/csv-convert <command> -h
 
   # Converts a CSV file to PDF
-  php ./bin/csv-convert \
+  ./bin/csv-convert \
      --output-file=cards.pdf \
      --map=name,phone,email \
      to-dompdf \
