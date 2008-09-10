@@ -10,7 +10,6 @@ require_once 'File/CSV/Converter/Strategy/ToDomPDF.php';
 require_once 'File/CSV/Converter/Strategy/ToHTML.php';
 require_once 'File/CSV/Converter/CommandLine.php';
 
-
 // TODO : strategies registry
 $conversion_strategies = array('File_CSV_Converter_Strategy_ToHTML' => 'to-html', 'File_CSV_Converter_Strategy_ToDomPDF' => 'to-dompdf');
 

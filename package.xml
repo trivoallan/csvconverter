@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.6.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+    http://pear.php.net/dtd/tasks-1.0.xsd
+    http://pear.php.net/dtd/package-2.0
+    http://pear.php.net/dtd/package-2.0.xsd">
+ <name>File_CSV_Converter</name>
+ <channel>pear.php.net</channel>
+ <summary>Strategy based CSV converter</summary>
+ <description>Strategy based CSV converter</description>
+ <lead>
+  <name>Tristan Rivoallan</name>
+  <user>trivoallan</user>
+  <email>tristan@rivoallan.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-09-10</date>
+ <time>23:44:05</time>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+ <notes>Initial release</notes>
+ <contents>
+  <dir baseinstalldir="." name="/">
+   <file baseinstalldir="." md5sum="39b2024ee85100db3b8d3a46a808e357" name="bin/convert.php" role="php">
+    <tasks:replace from="edza" to="sig_type" type="pear-config" />
+   </file>
+   <file baseinstalldir="." md5sum="8c03e8b89e52543ddf069a363d78ee86" name="src/File/CSV/Converter.php" role="php" />
+   <file baseinstalldir="." md5sum="6ecffedcd5e5fb96e8067e66bcb665ed" name="src/File/CSV/Converter/CommandLine.php" role="php" />
+   <file baseinstalldir="." md5sum="a70ab62530063e1e8a7105a8e4b8feaa" name="src/File/CSV/Converter/Strategy.php" role="php" />
+   <file baseinstalldir="." md5sum="de1f6384fb2f848e6c85ec2232013493" name="src/File/CSV/Converter/Strategy/ToDomPDF.php" role="php" />
+   <file baseinstalldir="." md5sum="22f80943f88866bee71eb7ffd0e0b092" name="src/File/CSV/Converter/Strategy/ToHTML.php" role="php" />
+   <file baseinstalldir="." md5sum="ebede41e27e287a353acef811498e821" name="README" role="data" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2008-09-10</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>Initial release</notes>
+  </release>
+ </changelog>
+</package>
