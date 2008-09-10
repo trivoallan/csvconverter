@@ -27,6 +27,7 @@ try {
   }
 
   // Build strategy parameters array
+  // TODO : destination file must convert() second parameter
   $strategy_parameters = array('destination_filepath' => $parsed_arguments->options['output_file']);
   foreach ($parsed_arguments->command->options as $option_name => $option_value)
   {

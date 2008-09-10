@@ -51,7 +51,6 @@ class File_CSV_Converter
    *
    * @param   string    $csvfile_url
    * @param   array     $columns_maps
-   * @param   integer   $skip_rows
    *
    * @return array
    *
@@ -59,7 +58,7 @@ class File_CSV_Converter
    * @todo  Throw an exception when columns map does not have the right number of columns
    * @todo  Optionnaly use http://pear.php.net/package/File for reading file
    */
-  private function extractData($csvfile_url, array $columns_maps, $skip_rows = 0)
+  private function extractData($csvfile_url, array $columns_maps)
   {
     if (!is_readable($csvfile_url))
     {
@@ -76,13 +75,6 @@ class File_CSV_Converter
     {
       $rowdata = array();
       $colnum = 0;
-
-      // Skip rows, if requested to
-      if ($rownum <= $skip_rows)
-      {
-        $rownum++;
-        continue;
-      }
 
       // Build hash, using columns map definition
       foreach ($columns_maps as $column_name)
