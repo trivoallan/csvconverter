@@ -8,3 +8,19 @@ The following strategies are available :
 
 The following templates are available :
  * Scrum cards
+
+ CLI usage examples :
+
+  # Displays global help, lists available commands
+  php ./bin/convert.php -h
+
+  # Displays help for a specific command
+  php ./bin/convert.php <command> -h
+
+  # Converts a CSV file to PDF
+  php ./bin/convert.php \
+     --output-file=cards.pdf \
+     --map=name,phone,email \
+     to-dompdf \
+     --templates_dir=./templates/businesscards \
+      /home/jdoe/contacts.csv
