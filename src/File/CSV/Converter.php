@@ -54,7 +54,6 @@ class File_CSV_Converter
    *
    * @return array
    *
-   * @todo  Throw an exception when $csvfile_url is not readable
    * @todo  Throw an exception when columns map does not have the right number of columns
    * @todo  Optionnaly use http://pear.php.net/package/File for reading file
    */

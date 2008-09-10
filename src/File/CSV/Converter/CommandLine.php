@@ -27,11 +27,10 @@ class File_CSV_Converter_CommandLine extends Console_CommandLine
    * @param string $option_value
    * @return array
    */
-  public function extractColumnsMapFromCliOption($option_value)
+  public static function extractColumnsMapFromCliOption($option_value)
   {
     return explode(',', $option_value);
   }
-
 
   private function initialize(array $strategies_registry)
   {
@@ -78,7 +77,7 @@ class File_CSV_Converter_CommandLine extends Console_CommandLine
       'description' => 'CSV columns map',
       'help_name'   => 'MAP',
       'action'      => 'Callback',
-      'callback'    => array($this, 'extractColumnsMapFromCliOption')
+      'callback'    => array(__CLASS__, 'extractColumnsMapFromCliOption')
     ));
   }
 
