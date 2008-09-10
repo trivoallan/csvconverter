@@ -15,6 +15,10 @@ class File_CSV_Converter_Strategy_ToDomPDF implements File_CSV_Converter_Strateg
 
   public function __construct(array $params = array())
   {
+    if (!class_exists('DOMPDF'))
+    {
+      throw new Exception(sprintf('The DOMPDF library is required by the "%s" conversion strategy. See package documentation for further informations.', __CLASS__));
+    }
     $this->destination_filepath = realpath($params['destination_filepath']);
     $this->html_strategy = new File_CSV_Converter_Strategy_ToHTML($params);
     $this->document_orientation = $params['orientation'];
