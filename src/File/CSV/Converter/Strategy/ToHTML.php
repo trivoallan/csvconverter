@@ -8,7 +8,7 @@
  *
  * @todo  More abstraction : this strategy could be CsvToTemplateConversionStrategy
  */
-class CsvToHtmlConversionStrategy implements csvConversionStrategy
+class File_CSV_Converter_Strategy_ToHTML implements File_CSV_Converter_Strategy
 {
 
   private

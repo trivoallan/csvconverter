@@ -6,7 +6,7 @@
 /**
  * Converts a CSV file using a conversion strategy.
  */
-class CsvConverter
+class File_CSV_Converter
 {
   private
     /**
@@ -24,7 +24,7 @@ class CsvConverter
    * @param array                 $columns_map  Definition of csv columns names
    * @param csvConversionStrategy $strategy     The conversion strategy to be used
    */
-  public function __construct(array $columns_map, csvConversionStrategy $strategy)
+  public function __construct(array $columns_map, File_CSV_Converter_Strategy $strategy)
   {
     $this->columns_map = $columns_map;
     $this->strategy    = $strategy;

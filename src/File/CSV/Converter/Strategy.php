@@ -3,7 +3,7 @@
  * @license GPL3
  */
 
-interface CsvConversionStrategy
+interface File_CSV_Converter_Strategy
 {
   public function __construct(array $params = array());
 

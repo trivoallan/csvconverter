@@ -2,8 +2,10 @@
 /**
  * @license GPL3
  */
+// TODO : autoload
+require_once realpath(dirname(__FILE__).'/../../../../../vendors/dompdf-0.5.1/dompdf_config.inc.php');
 
-class CsvToDomPdfConversionStrategy implements CsvConversionStrategy
+class File_CSV_Converter_Strategy_ToDomPDF implements File_CSV_Converter_Strategy
 {
 
   private
@@ -14,7 +16,7 @@ class CsvToDomPdfConversionStrategy implements CsvConversionStrategy
   public function __construct(array $params = array())
   {
     $this->destination_filepath = realpath($params['destination_filepath']);
-    $this->html_strategy = new CsvToHtmlConversionStrategy($params);
+    $this->html_strategy = new File_CSV_Converter_Strategy_ToHTML($params);
     $this->document_orientation = $params['orientation'];
     $this->paper_format = $params['format'];
   }

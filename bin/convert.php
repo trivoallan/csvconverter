@@ -1,16 +1,18 @@
 <?php
 error_reporting(E_ALL | E_STRICT);
 
+// TODO : autoload
+set_include_path(get_include_path() . PATH_SEPARATOR . realpath(dirname(__FILE__) . '/../src'));
 require_once 'Console/CommandLine.php';
-require_once dirname(__FILE__).'/../lib/dompdf-0.5.1/dompdf_config.inc.php';
-require_once dirname(__FILE__).'/../lib/CsvConversionStrategy.class.php';
-require_once dirname(__FILE__).'/../lib/CsvToDomPdfConversionStrategy.class.php';
-require_once dirname(__FILE__).'/../lib/CsvToHtmlConversionStrategy.class.php';
-require_once dirname(__FILE__).'/../lib/File_CSV_Converter_CommandLine.php';
-require_once dirname(__FILE__).'/../lib/CsvConverter.class.php';
+require_once 'File/CSV/Converter.php';
+require_once 'File/CSV/Converter/Strategy.php';
+require_once 'File/CSV/Converter/Strategy/ToDomPDF.php';
+require_once 'File/CSV/Converter/Strategy/ToHTML.php';
+require_once 'File/CSV/Converter/CommandLine.php';
+
 
 // TODO : strategies registry
-$conversion_strategies = array('CsvToHtmlConversionStrategy' => 'to-html', 'CsvToDomPdfConversionStrategy' => 'to-dompdf');
+$conversion_strategies = array('File_CSV_Converter_Strategy_ToHTML' => 'to-html', 'File_CSV_Converter_Strategy_ToDomPDF' => 'to-dompdf');
 
 // Configure parser
 $parser = new File_CSV_Converter_CommandLine(array(), $conversion_strategies);
@@ -40,7 +42,7 @@ try {
   $strategy_instance = new $strategy_classname($strategy_parameters);
 
   // Instanciate converter
-  $converter = new CsvConverter($parsed_arguments->options['map'], $strategy_instance);
+  $converter = new File_CSV_Converter($parsed_arguments->options['map'], $strategy_instance);
   $converter->convert($parsed_arguments->command->args['input_file']);
 
 } catch (Exception $e) {
