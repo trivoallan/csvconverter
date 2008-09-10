@@ -1,37 +1,84 @@
 <?php
+/**
+ */
+
+/**
+ * Converts a CSV file using a conversion strategy.
+ */
 class CsvConverter
 {
   private
+    /**
+     * @var csvConversionStrategy
+     */
     $strategy,
+    /**
+     * @var array
+     */
     $columns_map;
 
+  /**
+   * Instanciates a converter object.
+   *
+   * @param   array                   $columns_map  Definition of csv columns names
+   * @param   csvConversionStrategy   $strategy     The conversion strategy to be used
+   */
   public function __construct(array $columns_map, csvConversionStrategy $strategy)
   {
     $this->columns_map = $columns_map;
     $this->strategy = $strategy;
   }
 
+  /**
+   * Converts supplied CSV file using current converter's strategy.
+   *
+   * @param   string    $csvfile_url   Path to the file
+   * @param   integer   $skip_rows     (optional)Number of rows to ignore in the file
+   *
+   * @return  string  Path to the resulting file
+   *
+   * @todo  CSV file specification must be configurable
+   */
   public function convert($csvfile_url, $skip_rows = 0)
   {
     $data = $this->extractData($csvfile_url, $this->columns_map, $skip_rows);
     return $this->strategy->convert($data);
   }
 
+  /**
+   * Turns data in the CSV file into an associative array.
+   *
+   * @param   string    $csvfile_url
+   * @param   array     $columns_maps
+   * @param   integer   $skip_rows
+   *
+   * @return array
+   *
+   * @todo  Throw an exception when $csvfile_url is not readable
+   * @todo  Throw an exception when columns map does not have the right number of columns
+   * @todo  Optionnaly use http://pear.php.net/package/File for reading file
+   */
   private function extractData($csvfile_url, array $columns_maps, $skip_rows = 0)
   {
+    // Open file
     $handle = fopen($csvfile_url, 'r');
+
+    // Extract each row
     $data = array();
     $rownum = 1;
     while(($row = fgetcsv($handle)) !== false)
     {
       $rowdata = array();
       $colnum = 0;
+
+      // Skip rows, if requested to
       if ($rownum <= $skip_rows)
       {
         $rownum++;
         continue;
       }
 
+      // Build hash, using columns map definition
       foreach ($columns_maps as $column_name)
       {
         if (!is_null($column_name))
