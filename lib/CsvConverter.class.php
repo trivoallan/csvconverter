@@ -61,6 +61,11 @@ class CsvConverter
    */
   private function extractData($csvfile_url, array $columns_maps, $skip_rows = 0)
   {
+    if (!is_readable($csvfile_url))
+    {
+      throw new RuntimeException(sprintf('"%s" is not readable', $csvfile_url));
+    }
+
     // Open file
     $handle = fopen($csvfile_url, 'r');
 

@@ -3,6 +3,11 @@
  * @license GPL3
  */
 
+/**
+ * Generates an HTML file out of supplied data.
+ *
+ * @todo  More abstraction : this strategy could be CsvToTemplateConversionStrategy
+ */
 class CsvToHtmlConversionStrategy implements csvConversionStrategy
 {
 
@@ -11,13 +16,41 @@ class CsvToHtmlConversionStrategy implements csvConversionStrategy
     $template_filepath,
     $destination_filepath;
 
+  /**
+   *
+   *
+   * @todo Sanity checks on supplied parameters
+   */
   public function __construct(array $params = array())
   {
-    $this->layout_filepath = $params['layout_filepath'];
-    $this->template_filepath = $params['template_filepath'];
+    if (!isset($params['templates_dir']))
+    {
+      throw new RuntimeException('Parameter "templates_dir" is mandatory');
+    }
+
+    $layout_filepath = sprintf('%s/layout.html.php', $params['templates_dir']);
+    if (!is_readable($layout_filepath))
+    {
+      throw new RuntimeException(sprintf('"%s" must be readable', $layout_filepath));
+    }
+    $template_filepath = sprintf('%s/row.html.php', $params['templates_dir']);
+    if (!is_readable($template_filepath))
+    {
+      throw new RuntimeException(sprintf('"%s" must be readable', $template_filepath));
+    }
+
+    $this->layout_filepath = $layout_filepath;
+    $this->template_filepath = $template_filepath;
     $this->destination_filepath = $params['destination_filepath'];
   }
 
+  /**
+   * Template in "template_filepath" is rendered for each row. The resulting html is then
+   * decorated using the template in "layout_filepath".
+   *
+   * @param array $data
+   * @return string
+   */
   public function convert(array $data)
   {
     $html_results = array();
@@ -42,5 +75,30 @@ class CsvToHtmlConversionStrategy implements csvConversionStrategy
 
     file_put_contents($this->destination_filepath, $decorated_html);
     return $this->destination_filepath;
+  }
+
+  public static function getCliCommandName()
+  {
+    return 'to-html';
+  }
+
+  public static function getCliCommandDescription()
+  {
+    return sprintf('converts a CSV file to an HTML file (provided by %s)', __CLASS__);
+  }
+
+  public static function getCliCommandSpecification()
+  {
+    $spec = array(
+      'options' => array(
+        'templates_dir' => array(
+          'short_name'  => '-t',
+          'long_name'   => '--templates-dir',
+          'description' => 'path to the directory containing the templates',
+          'help_name'   => 'DIRECTORY')
+      )
+    );
+
+    return $spec;
   }
 }
