@@ -1,4 +1,8 @@
 <?php
+/**
+ * @license GPL3
+ */
+
 // Include dependencies
 require_once dirname(__FILE__).'/../lib/dompdf-0.5.1/dompdf_config.inc.php';
 require_once dirname(__FILE__).'/../lib/CsvConverter.class.php';

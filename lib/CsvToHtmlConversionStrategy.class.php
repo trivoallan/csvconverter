@@ -1,4 +1,8 @@
 <?php
+/**
+ * @license GPL3
+ */
+
 class CsvToHtmlConversionStrategy implements csvConversionStrategy
 {
 

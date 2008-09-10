@@ -1,7 +1,6 @@
 <html>
 
 <head>
-  <title>LBI - Product backlog</title>
   <style type="text/css">
     body {
       font-size: 0.5em;
@@ -15,7 +14,7 @@
     p.box {
       font-size: 1.5em;
     }
-    p.metrics {
+    p.metrics {
     }
     p.metrics strong  {
       font-size: x-larger;
