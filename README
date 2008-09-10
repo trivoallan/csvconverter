@@ -12,13 +12,13 @@ The following templates are available :
  CLI usage examples :
 
   # Displays global help, lists available commands
-  php ./bin/convert.php -h
+  php ./bin/csv-convert -h
 
   # Displays help for a specific command
-  php ./bin/convert.php <command> -h
+  php ./bin/csv-convert <command> -h
 
   # Converts a CSV file to PDF
-  php ./bin/convert.php \
+  php ./bin/csv-convert \
      --output-file=cards.pdf \
      --map=name,phone,email \
      to-dompdf \
