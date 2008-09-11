@@ -16,31 +16,14 @@ class File_CSV_Converter_Strategy_ToHTML implements File_CSV_Converter_Strategy
     $template_filepath,
     $destination_filepath;
 
-  /**
-   *
-   *
-   * @todo Sanity checks on supplied parameters
-   */
   public function __construct(array $params = array())
   {
-    if (!isset($params['templates_dir']))
-    {
-      throw new RuntimeException('Parameter "templates_dir" is mandatory');
-    }
+    // Perform sanity checks
+    $this->performSanityChecks($params);
 
-    $layout_filepath = sprintf('%s/layout.html.php', $params['templates_dir']);
-    if (!is_readable($layout_filepath))
-    {
-      throw new RuntimeException(sprintf('"%s" must be readable', $layout_filepath));
-    }
-    $template_filepath = sprintf('%s/row.html.php', $params['templates_dir']);
-    if (!is_readable($template_filepath))
-    {
-      throw new RuntimeException(sprintf('"%s" must be readable', $template_filepath));
-    }
-
-    $this->layout_filepath = $layout_filepath;
-    $this->template_filepath = $template_filepath;
+    // Configure strategy
+    $this->layout_filepath = sprintf('%s/layout.html.php', $params['templates_dir']);
+    $this->template_filepath = sprintf('%s/row.html.php', $params['templates_dir']);
     $this->destination_filepath = $params['destination_filepath'];
   }
 
@@ -92,5 +75,41 @@ class File_CSV_Converter_Strategy_ToHTML implements File_CSV_Converter_Strategy
     );
 
     return $spec;
+  }
+
+  private function performSanityChecks(array $params)
+  {
+    // Mandatory parameters
+    if (!isset($params['templates_dir']))
+    {
+      throw new RuntimeException('Parameter "templates_dir" is mandatory');
+    }
+    if (!isset($params['destination_filepath']))
+    {
+      throw new RuntimeException('Parameter "destination_filepath" is mandatory');
+    }
+
+    // Destination file must me writeable
+    if (!is_writable($params['destination_filepath']))
+    {
+      throw new RuntimeException(sprintf('"%s" must be writable'));
+    }
+
+    // Templates must be readable
+    // -- layout
+    $layout_filepath = sprintf('%s/layout.html.php', $params['templates_dir']);
+    if (!is_readable($layout_filepath))
+    {
+      throw new RuntimeException(sprintf('"%s" must be readable', $layout_filepath));
+    }
+
+    // -- row template
+    $template_filepath = sprintf('%s/row.html.php', $params['templates_dir']);
+    if (!is_readable($template_filepath))
+    {
+      throw new RuntimeException(sprintf('"%s" must be readable', $template_filepath));
+    }
+
+    return true;
   }
 }
