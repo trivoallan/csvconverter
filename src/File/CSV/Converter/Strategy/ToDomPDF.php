@@ -10,7 +10,6 @@ class File_CSV_Converter_Strategy_ToDomPDF implements File_CSV_Converter_Strateg
 
   private
     $document_orientation,
-    $destination_filepath,
     $html_strategy;
 
   public function __construct(array $params = array())
@@ -19,21 +18,24 @@ class File_CSV_Converter_Strategy_ToDomPDF implements File_CSV_Converter_Strateg
     {
       throw new Exception(sprintf('The DOMPDF library is required by the "%s" conversion strategy. See package documentation for further informations.', __CLASS__));
     }
-    $this->destination_filepath = realpath($params['destination_filepath']);
     $this->html_strategy = new File_CSV_Converter_Strategy_ToHTML($params);
     $this->document_orientation = $params['orientation'];
     $this->paper_format = $params['format'];
   }
 
-  public function convert(array $data)
+  public function convert(array $data, $destinationfile_url)
   {
+    if ($destinationfile_url == '/dev/stdout')
+    {
+      throw new RuntimeException(sprintf('The "%s" conversion strategy does not support outputing to "/dev/stdout". Please use the "--output" option.', __CLASS__));
+    }
+
     $dompdf = new DOMPDF();
     $dompdf->set_paper($this->paper_format, $this->document_orientation);
-    $dompdf->load_html_file($this->html_strategy->convert($data));
+    $this->html_strategy->convert($data, $destinationfile_url);
+    $dompdf->load_html_file($destinationfile_url);
     $dompdf->render();
-    file_put_contents($this->destination_filepath, $dompdf->output());
-
-    return $this->destination_filepath;
+    file_put_contents($destinationfile_url, $dompdf->output());
   }
 
   public static function getCliCommandSpecification()

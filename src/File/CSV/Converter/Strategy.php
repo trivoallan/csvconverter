@@ -7,5 +7,5 @@ interface File_CSV_Converter_Strategy
 {
   public function __construct(array $params = array());
 
-  public function convert(array $data);
+  public function convert(array $data, $destinationfile_url);
 }

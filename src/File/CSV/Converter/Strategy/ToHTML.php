@@ -13,8 +13,7 @@ class File_CSV_Converter_Strategy_ToHTML implements File_CSV_Converter_Strategy
 
   private
     $layout_filepath,
-    $template_filepath,
-    $destination_filepath;
+    $template_filepath;
 
   public function __construct(array $params = array())
   {
@@ -24,7 +23,6 @@ class File_CSV_Converter_Strategy_ToHTML implements File_CSV_Converter_Strategy
     // Configure strategy
     $this->layout_filepath = sprintf('%s/layout.html.php', $params['templates_dir']);
     $this->template_filepath = sprintf('%s/row.html.php', $params['templates_dir']);
-    $this->destination_filepath = $params['destination_filepath'];
   }
 
   /**
@@ -34,7 +32,7 @@ class File_CSV_Converter_Strategy_ToHTML implements File_CSV_Converter_Strategy
    * @param array $data
    * @return string
    */
-  public function convert(array $data)
+  public function convert(array $data, $destinationfile_url)
   {
     $html_results = array();
     $rownum = 1;
@@ -56,8 +54,7 @@ class File_CSV_Converter_Strategy_ToHTML implements File_CSV_Converter_Strategy
     require($this->layout_filepath);
     $decorated_html = ob_get_clean();
 
-    file_put_contents($this->destination_filepath, $decorated_html);
-    return $this->destination_filepath;
+    file_put_contents($destinationfile_url, $decorated_html);
   }
 
   public static function getCliCommandSpecification()
@@ -83,16 +80,6 @@ class File_CSV_Converter_Strategy_ToHTML implements File_CSV_Converter_Strategy
     if (!isset($params['templates_dir']))
     {
       throw new RuntimeException('Parameter "templates_dir" is mandatory');
-    }
-    if (!isset($params['destination_filepath']))
-    {
-      throw new RuntimeException('Parameter "destination_filepath" is mandatory');
-    }
-
-    // Destination file must me writeable
-    if (!is_writable($params['destination_filepath']))
-    {
-      throw new RuntimeException(sprintf('"%s" must be writable'));
     }
 
     // Templates must be readable

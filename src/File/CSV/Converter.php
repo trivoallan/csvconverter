@@ -33,16 +33,17 @@ class File_CSV_Converter
   /**
    * Converts supplied CSV file using current converter's strategy.
    *
-   * @param   string    $csvfile_url   Path to the file
+   * @param   string    $csvfile_url           Path to the  input file
+   * @param   string    $destinationfile_url   Path to the output file
    *
    * @return  string  Path to the resulting file
    *
    * @todo  CSV file specification must be configurable
    */
-  public function convert($csvfile_url)
+  public function convert($csvfile_url, $destinationfile_url)
   {
     $data = $this->extractData($csvfile_url, $this->columns_map);
-    return $this->strategy->convert($data);
+    $this->strategy->convert($data, $destinationfile_url);
   }
 
   /**

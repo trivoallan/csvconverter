@@ -70,10 +70,10 @@ class File_CSV_Converter_CommandLine extends Console_CommandLine
     $this->addOption('output_file', array(
       'short_name'  => '-o',
       'long_name'   => '--output',
-      'description' => 'path to output file (defaults to "./converted.out")',
+      'description' => 'path to output file (defaults to "/dev/stdout")',
       'help_name'   => 'FILEPATH',
       'action'      => 'StoreString',
-      'default'     => getcwd().'/converted.out'
+      'default'     => '/dev/stdout'
     ));
 
     $this->addOption('map', array(
