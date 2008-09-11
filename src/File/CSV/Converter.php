@@ -53,7 +53,6 @@ class File_CSV_Converter
    *
    * @return array
    *
-   * @todo  Throw an exception when columns map does not have the right number of columns
    * @todo  Optionnaly use http://pear.php.net/package/File for reading file
    */
   private function extractData($csvfile_url, array $columns_maps)
@@ -71,6 +70,20 @@ class File_CSV_Converter
     $rownum = 1;
     while(($row = fgetcsv($handle)) !== false)
     {
+      // Check that the columns map is coherent w/ the csv file
+      if ($rownum == 1)
+      {
+        if (count($columns_maps) != count($row))
+        {
+          throw new RuntimeException(
+            sprintf('Columns map must have the same number of columns than the CSV file (%d/%d)',
+                    count($columns_maps),
+                    count($row)
+            )
+          );
+        }
+      }
+
       $rowdata = array();
       $colnum = 0;
 
