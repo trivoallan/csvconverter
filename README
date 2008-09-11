@@ -9,18 +9,63 @@ The following strategies are available :
 The following templates are available :
  * Scrum cards
 
-CLI usage examples :
+CLI documentation :
 
-  # Displays global help, lists available commands
-  ./bin/csv-convert -h
+  # Global help
+  $ ./bin/csv-convert -h
 
-  # Displays help for a specific command
-  ./bin/csv-convert <command> -h
+Strategy based CSV file converter
 
-  # Converts a CSV file to PDF
-  ./bin/csv-convert \
-     --output-file=cards.pdf \
-     --map=name,phone,email \
-     to-dompdf \
-     --templates_dir=./templates/businesscards \
-      /home/jdoe/contacts.csv
+Usage:
+  ./bin/csv-convert [options]
+  ./bin/csv-convert [options] <command> [options] [args]
+
+Options:
+  -o FILEPATH, --output=FILEPATH  path to output file (defaults to
+                                  "./converted.out")
+  -m MAP, --map=MAP               CSV columns map
+  -h, --help                      show this help message and exit
+  -v, --version                   show the program version and exit
+
+Commands:
+  to-html    converts a CSV file to an HTML file (provided by
+             File_CSV_Converter_Strategy_ToHTML)
+  to-dompdf  converts a CSV file to a PDF file using dompdf (provided by
+             File_CSV_Converter_Strategy_ToDomPDF)
+
+  # HTML conversion subcommand
+  $ ./bin/csv-convert to-html -h
+
+Converts a CSV file to an HTML file (provided by
+File_CSV_Converter_Strategy_ToHTML)
+
+Usage:
+  ./bin/csv-convert [options] to-html [options] <input_file>
+
+Options:
+  -t DIRECTORY, --templates-dir=DIRECTORY  path to the directory containing
+                                           the templates
+  -h, --help                               show this help message and exit
+
+Arguments:
+  input_file  path to input file
+
+  # PDF conversion subcommand
+  $ ./bin/csv-convert to-html -h
+
+Converts a CSV file to a PDF file using dompdf (provided by
+File_CSV_Converter_Strategy_ToDomPDF)
+
+Usage:
+  ./bin/csv-convert [options] to-dompdf [options] <input_file>
+
+Options:
+  -o orientation, --orientation=orientation  document orientation
+  -o format, --format=format                 paper format
+  -t DIRECTORY, --templates-dir=DIRECTORY    path to the directory
+                                             containing the templates
+  -h, --help                                 show this help message and
+                                             exit
+
+Arguments:
+  input_file  path to input file
