@@ -36,19 +36,11 @@ class File_CSV_Converter_Strategy_ToDomPDF implements File_CSV_Converter_Strateg
     return $this->destination_filepath;
   }
 
-  public static function getCliCommandName()
-  {
-    return 'to-dompdf';
-  }
-
-  public static function getCliCommandDescription()
-  {
-    return sprintf('converts a CSV file to a PDF file using dompdf (provided by %s)', __CLASS__);
-  }
-
   public static function getCliCommandSpecification()
   {
     $spec = array(
+      'name'          => 'to-dompdf',
+      'description'   => sprintf('converts a CSV file to a PDF file using dompdf (provided by %s)', __CLASS__),
       'options' => array(
         'orientation' => array(
           'short_name'  => '-o',

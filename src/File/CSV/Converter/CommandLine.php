@@ -37,12 +37,15 @@ class File_CSV_Converter_CommandLine extends Console_CommandLine
     // Conversion subcommands
     foreach ($this->strategies_registry as $strategy_classname => $strategy_commandname)
     {
-      $conversion_cmd = $this->addCommand(
-        call_user_func(array($strategy_classname, 'getCliCommandName')), array(
-        'description' => call_user_func(array($strategy_classname, 'getCliCommandDescription'))
-      ));
+      // Get subcommand specification
       $command_spec = call_user_func(array($strategy_classname, 'getCliCommandSpecification'));
 
+      // Create subcommand
+      $conversion_cmd = $this->addCommand(
+        $command_spec['name'], array('description' => $command_spec['description'])
+      );
+
+      // Define subcommand options
       if (isset($command_spec['options']) && is_array($command_spec['options']))
       {
         foreach ($command_spec['options'] as $option_name => $option_spec)
@@ -51,6 +54,7 @@ class File_CSV_Converter_CommandLine extends Console_CommandLine
         }
       }
 
+      // Define subcommand arguments
       if (isset($command_spec['arguments']) && is_array($command_spec['arguments']))
       {
         foreach ($command_spec['arguments'] as $arg_name => $arg_spec)
@@ -59,6 +63,7 @@ class File_CSV_Converter_CommandLine extends Console_CommandLine
         }
       }
 
+      // This argument is common to all conversion strategies
       $conversion_cmd->addArgument('input_file', array('description' => 'path to input file'));
     }
 

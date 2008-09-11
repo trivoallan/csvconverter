@@ -77,20 +77,12 @@ class File_CSV_Converter_Strategy_ToHTML implements File_CSV_Converter_Strategy
     return $this->destination_filepath;
   }
 
-  public static function getCliCommandName()
-  {
-    return 'to-html';
-  }
-
-  public static function getCliCommandDescription()
-  {
-    return sprintf('converts a CSV file to an HTML file (provided by %s)', __CLASS__);
-  }
-
   public static function getCliCommandSpecification()
   {
     $spec = array(
-      'options' => array(
+      'name'          => 'to-html',
+      'description'   => sprintf('converts a CSV file to an HTML file (provided by %s)', __CLASS__),
+      'options'       => array(
         'templates_dir' => array(
           'short_name'  => '-t',
           'long_name'   => '--templates-dir',

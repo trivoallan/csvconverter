@@ -34,15 +34,14 @@ class File_CSV_Converter
    * Converts supplied CSV file using current converter's strategy.
    *
    * @param   string    $csvfile_url   Path to the file
-   * @param   integer   $skip_rows     (optional)Number of rows to ignore in the file
    *
    * @return  string  Path to the resulting file
    *
    * @todo  CSV file specification must be configurable
    */
-  public function convert($csvfile_url, $skip_rows = 0)
+  public function convert($csvfile_url)
   {
-    $data = $this->extractData($csvfile_url, $this->columns_map, $skip_rows);
+    $data = $this->extractData($csvfile_url, $this->columns_map);
     return $this->strategy->convert($data);
   }
 
